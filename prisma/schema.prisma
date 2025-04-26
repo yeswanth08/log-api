@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model Incident {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  severity    Severity
+  reportedAt  DateTime @default(now())
+  adminId     Int?
+  admin       Admin?   @relation(fields: [adminId], references: [id])
+
+  @@index([severity])
+  @@index([reportedAt])
+  @@index([adminId])
+}
+
+model Admin {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt @default(now())
+  incidents Incident[]
+
+  @@index([name])
+  @@index([createdAt])
+}
