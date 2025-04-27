@@ -6,24 +6,6 @@ export const incidents = [
       "reportedAt": "2025-04-26T10:20:00.000Z"
     },
     {
-      "title": "Revamp customer engagement strategies",
-      "description": "Aliquam erat volutpat. Nam eget tortor velit. Suspendisse potenti. Morbi a purus purus. Nullam dictum lorem non lacus dictum fermentum.",
-      "severity": "MEDIUM",
-      "reportedAt": "2025-04-25T09:15:00.000Z"
-    },
-    {
-      "title": "Increase operational efficiency",
-      "description": "Fusce volutpat felis nisl, a gravida nisi sollicitudin eget. Nulla facilisi. Integer vel risus et nisi malesuada condimentum non a justo.",
-      "severity": "LOW",
-      "reportedAt": "2025-04-24T12:45:00.000Z"
-    },
-    {
-      "title": "Improve data security protocols",
-      "description": "Nullam egestas dui in lorem suscipit, vel facilisis dui aliquet. Cras gravida elit nec justo laoreet, sit amet tempus eros consequat.",
-      "severity": "HIGH",
-      "reportedAt": "2025-04-23T14:05:00.000Z"
-    },
-    {
       "title": "Enhance user interface experience",
       "description": "Sed tincidunt mi ut magna fermentum, ut tristique purus luctus. Fusce euismod leo non lorem tincidunt, eu facilisis arcu mollis.",
       "severity": "MEDIUM",
@@ -34,12 +16,6 @@ export const incidents = [
       "description": "Mauris sit amet ante sapien. Nunc et nisl feugiat, tempus mi sed, condimentum odio. Phasellus at dolor eget mi tincidunt tristique.",
       "severity": "LOW",
       "reportedAt": "2025-04-21T13:55:00.000Z"
-    },
-    {
-      "title": "Evaluate system backup strategies",
-      "description": "Vestibulum feugiat libero et auctor tincidunt. Curabitur eget leo vel nisi gravida maximus. Donec tristique leo a sem fermentum vehicula.",
-      "severity": "HIGH",
-      "reportedAt": "2025-04-20T11:40:00.000Z"
     },
     {
       "title": "Address cloud storage performance",
@@ -54,22 +30,10 @@ export const incidents = [
       "reportedAt": "2025-04-18T10:05:00.000Z"
     },
     {
-      "title": "Revise customer feedback analysis",
-      "description": "Maecenas ultricies velit ut lorem egestas, sed vehicula erat feugiat. Aliquam erat volutpat. Aenean ut orci nec libero iaculis aliquet.",
-      "severity": "MEDIUM",
-      "reportedAt": "2025-04-17T17:50:00.000Z"
-    },
-    {
       "title": "Enhance server load balancing",
       "description": "Aenean sit amet nulla purus. Aliquam sollicitudin nibh erat, in interdum justo suscipit vel. Sed vitae ante mauris. Pellentesque vitae lectus lectus.",
       "severity": "HIGH",
       "reportedAt": "2025-04-16T13:15:00.000Z"
-    },
-    {
-      "title": "Boost marketing campaign effectiveness",
-      "description": "Curabitur gravida magna sit amet malesuada eleifend. Nunc id nisl ipsum. Nullam viverra euismod neque, sit amet auctor libero venenatis vel.",
-      "severity": "LOW",
-      "reportedAt": "2025-04-15T09:10:00.000Z"
     },
     {
       "title": "Conduct user behavior analytics",
@@ -78,22 +42,10 @@ export const incidents = [
       "reportedAt": "2025-04-14T11:55:00.000Z"
     },
     {
-      "title": "Review customer service training",
-      "description": "Quisque et velit ligula. Curabitur vulputate mollis tortor, ac lobortis nisi interdum eget. Nam sollicitudin magna in nunc convallis, eu facilisis lectus elementum.",
-      "severity": "HIGH",
-      "reportedAt": "2025-04-13T14:40:00.000Z"
-    },
-    {
       "title": "Reevaluate vendor management system",
       "description": "Vivamus fermentum ultricies neque, sed placerat leo iaculis at. Aenean viverra orci ante, eget malesuada risus pellentesque vel.",
       "severity": "LOW",
       "reportedAt": "2025-04-12T08:25:00.000Z"
-    },
-    {
-      "title": "Implement social media analytics tools",
-      "description": "Integer faucibus arcu ac lorem vehicula, non vehicula metus feugiat. Cras vehicula sem at interdum auctor. Pellentesque fringilla dolor sit amet sem volutpat.",
-      "severity": "MEDIUM",
-      "reportedAt": "2025-04-11T10:50:00.000Z"
     },
     {
       "title": "Fix database query performance",
@@ -108,10 +60,22 @@ export const incidents = [
       "reportedAt": "2025-04-09T15:20:00.000Z"
     },
     {
-      "title": "Assess internal team collaboration",
-      "description": "Duis sed urna orci. Nam at suscipit lorem. Fusce pharetra risus in nunc tempor, sit amet sodales erat volutpat. Aenean euismod augue sit amet nisl feugiat.",
+      "title": "Improve system security protocols",
+      "description": "Integer eget ligula eu nisi gravida feugiat non et ipsum. Integer ut justo vitae purus aliquam aliquam.",
+      "severity": "HIGH",
+      "reportedAt": "2025-04-27T12:40:00.000Z"
+    },
+    {
+      "title": "Optimize server backup process",
+      "description": "Etiam ultricies orci sit amet velit pharetra, sed maximus lorem tincidunt. Integer ac tristique nulla.",
+      "severity": "MEDIUM",
+      "reportedAt": "2025-04-24T14:10:00.000Z"
+    },
+    {
+      "title": "Conduct performance tests for new features",
+      "description": "Phasellus ac ligula tincidunt, consequat neque nec, rutrum nunc. Donec pretium enim ut felis feugiat volutpat.",
       "severity": "LOW",
-      "reportedAt": "2025-04-08T13:00:00.000Z"
+      "reportedAt": "2025-04-20T17:00:00.000Z"
     }
   ];
   
