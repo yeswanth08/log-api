@@ -1,7 +1,3 @@
-Of course! Here's the README.md version of your full text, properly formatted in Markdown:
-
----
-
 # 📄 Log API
 
 Welcome to **Log API** — a lightweight, scalable, and production-ready Node.js API built with Express, TypeScript, PostgreSQL, Redis, Prisma, and Docker.
@@ -80,7 +76,7 @@ touch .env
 Paste the following:
 
 ```env
-DATABASE_URL="postgresql://postgres:password@db:5432/incidentdb"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/incidentdb"
 PORT=3000
 NODE_ENV=development
 TZ='UTC'
@@ -103,7 +99,7 @@ npm install
 Use the provided startup script:
 
 ```bash
-bash startup.sh
+bash ./startup.sh
 ```
 
 This will:
