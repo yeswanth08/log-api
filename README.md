@@ -29,6 +29,11 @@ PostgreSQL	Relational database
 Prisma	ORM (Optimized with indexes)
 Redis	Caching and quick storage
 Docker	Containerization
+
+🖼️ System Design Reference
+📷 ![Design](./Design.png)
+(Example: a basic flowchart showing Client → API Server → DB + Redis.)
+
 🚀 Getting Started
 Follow these steps carefully to set up and run the project.
 
@@ -266,9 +271,6 @@ CORS is enabled for flexible frontend integration.
 
 PostgreSQL database is optimized with indexes on important columns for faster search performance.
 
-🖼️ System Design Reference
-📷 ![Design](./Design.png)
-(Example: a basic flowchart showing Client → API Server → DB + Redis.)
 
 🤝 Contributing
 Contributions are welcome!
