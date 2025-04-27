@@ -8,7 +8,16 @@ const rootRouter = express.Router();
 
 rootRouter.get("/incidents", displayIncidents);
 rootRouter.get("/incidents/:id", displayIncidentsById);
-rootRouter.post("/addincidents", isAdmin,addIncidentController.addIncidents);
-rootRouter.delete("/deleteincidents/:id",isAdmin,deleteController.deleteIncidents)
+rootRouter.post("/addwithauth/incidents", isAdmin,addIncidentController.addIncidents);
+rootRouter.delete("/deletewithauth/incidents/:id",isAdmin,deleteController.deleteIncidents);
+
+/**
+ * as per the requirement,i am also adding the delete and add incident routes without auth middleware
+ */
+
+// This route is for adding incidents without authentication
+
+rootRouter.post("/add/incidents", addIncidentController.addIncidents);
+rootRouter.delete("/delete/incidents/:id", deleteController.deleteIncidents);
 
 export { rootRouter };

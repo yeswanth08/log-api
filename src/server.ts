@@ -16,12 +16,12 @@ app.use(cors());
 app.use("/api", rootRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT} 🚀`);
 })
 
 startIncidentSubscriber()
   .then(() => {
-    console.log("Subscriber started successfully");
+    console.log("Subscriber started successfully 🚀");
   })
   .catch((error) => {
     console.error("Error starting subscriber:", error);

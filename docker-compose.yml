@@ -13,17 +13,46 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      timeout: 10s
 
   redis:
     image: redis:alpine
     container_name: my-redis
     restart: always
     ports:
-      - "6379:6379"  
+      - "6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "PING"]
       interval: 30s
       retries: 3
+      start_period: 10s
+      timeout: 10s
+
+  app:
+    build: .
+    container_name: node-app
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/usr/src/app
+    command: sh -c "npm install --legacy-peer-deps && npx prisma generate && npx tsc -b && npm run seed && npm run dev"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      retries: 5
       start_period: 10s
       timeout: 10s
 

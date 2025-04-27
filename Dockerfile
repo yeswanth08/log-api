@@ -1,12 +1,14 @@
-FROM node:20-alpine3.18
 
-WORKDIR /app
+FROM node:20-alpine
 
-COPY package.json package-lock.json ./
-RUN npm install
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npx prisma generate
+EXPOSE 3000
 
-CMD ["npm", "run", "seed"]
+CMD ["npm", "run", "dev"]
