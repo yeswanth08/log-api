@@ -20,7 +20,7 @@ model Incident {
   severity    Severity
   reportedAt  DateTime @default(now())
   adminId     Int?
-  admin       Admin?   @relation(fields: [adminId], references: [id])
+  admin       Admin?   @relation(fields: [adminId], references: [id], onDelete: Cascade)
 
   @@index([severity])
   @@index([reportedAt])

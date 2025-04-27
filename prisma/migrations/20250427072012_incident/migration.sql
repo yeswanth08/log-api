@@ -40,4 +40,4 @@ CREATE INDEX "Admin_name_idx" ON "Admin"("name");
 CREATE INDEX "Admin_createdAt_idx" ON "Admin"("createdAt");
 
 -- AddForeignKey
-ALTER TABLE "Incident" ADD CONSTRAINT "Incident_adminId_fkey" FOREIGN KEY ("adminId") REFERENCES "Admin"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Incident" ADD CONSTRAINT "Incident_adminId_fkey" FOREIGN KEY ("adminId") REFERENCES "Admin"("id") ON DELETE CASCADE ON UPDATE CASCADE;
