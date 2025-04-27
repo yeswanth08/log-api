@@ -35,16 +35,22 @@ Docker	Containerization
 (Example: a basic flowchart showing Client → API Server → DB + Redis.)
 
 🚀 Getting Started
-Follow these steps carefully to set up and run the project.
+Follow these steps carefully to set up and run the project:
 
 1. Prerequisites
-Ensure you have the following installed on your machine:
+Ensure you have the following installed:
+
+Node.js (Locally required for scripts)
+
+npm (Node package manager)
+
+Bash shell (for running startup scripts)
 
 Docker
 
 Docker Compose
 
-(✅ Node.js and npm are NOT required because everything is containerized.)
+⚡️ Note: Unlike fully containerized solutions, here Node.js is mandatory locally to run startup.sh and setup dependencies smoothly.
 
 2. Clone the Repository
 bash
@@ -53,51 +59,57 @@ Edit
 git clone https://github.com/yeswanth08/log-api.git
 cd log-api
 3. Setup Environment Variables
-Create a .env file at the root of the project:
+Create a .env file at the root:
 
 bash
 Copy
 Edit
 touch .env
-Paste the following into .env:
+Paste:
 
 env
 Copy
 Edit
 DATABASE_URL="postgresql://postgres:password@db:5432/incidentdb"
-PORT = 3000
-NODE_ENV= development
+PORT=3000
+NODE_ENV=development
 TZ='UTC'
-⚡ Replace your_admin_secret_key with a strong secret string.
+⚡️ Replace your_admin_secret_key with a strong secret string.
 
-4. Start the Application
-Use Docker Compose to build and run all services:
+4. Install Node Modules
+bash
+Copy
+Edit
+npm install
+5. Start the Application
+Use the provided startup script:
 
 bash
 Copy
 Edit
-docker-compose up --build
+bash startup.sh
 This will:
 
-Start PostgreSQL (my-postgres)
+Install dependencies
 
-Start Redis (my-redis)
+Build the TypeScript code
 
-Build and run the Node.js API server (node-app)
+Set up Docker containers
 
-Access the application at:
+Start Node.js, PostgreSQL, and Redis services
+
+Access at:
 
 bash
 Copy
 Edit
 http://localhost:3000
-5. Manual Database Seeding (Optional)
-Seeding runs automatically at startup. To run it manually:
-
+6. Manual Database Seeding (Optional)
 bash
 Copy
 Edit
 docker exec -it node-app npm run seed
+
 📚 API Documentation
 
 Method	Route	Description	Authorization
@@ -176,7 +188,7 @@ curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/{id} \
 bash
 Copy
 Edit
-curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/26 \
+curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/24 \
   -H "Content-Type: application/json" \
   -d '{
         "name": "admin",
@@ -229,6 +241,7 @@ log-api/
 │   │   ├── displayIncidents.ts
 │   ├── middlewares/
 │   │   └── admin.validate.middleware.ts
+├── startup.sh   <-- Bash script to initialize everything
 🐳 Dockerized Services Overview
 
 Service	Port	Purpose

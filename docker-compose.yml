@@ -33,28 +33,5 @@ services:
       start_period: 10s
       timeout: 10s
 
-  app:
-    build: .
-    container_name: node-app
-    restart: always
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    volumes:
-      - .:/usr/src/app
-    command: sh -c "npm install --legacy-peer-deps && npx prisma generate && npx tsc -b && npm run seed && npm run dev"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      retries: 5
-      start_period: 10s
-      timeout: 10s
-
 volumes:
   postgres_data:
