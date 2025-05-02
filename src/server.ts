@@ -14,15 +14,21 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api", rootRouter);
+app.use("/", (req, res) => {
+  res.json({
+    messsge: "Health check",
+    status: "OK",
+  })
+});
+
+startIncidentSubscriber()
+.then(() => {
+  console.log("Subscriber started successfully 🚀");
+})
+.catch((error) => {
+  console.error("Error starting subscriber:", error);
+  });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT} 🚀`);
 })
-
-startIncidentSubscriber()
-  .then(() => {
-    console.log("Subscriber started successfully 🚀");
-  })
-  .catch((error) => {
-    console.error("Error starting subscriber:", error);
-  });

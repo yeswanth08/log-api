@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsc -b && node ./dist/src/server.js",
-    "seed": "npx tsc -b && cd prisma && npx prisma migrate dev && cd .. && node ./dist/prisma/seeder.js"
+    "build": "npx tsc -b",
+    "dev": "node ./dist/src/server.js",
+    "seed": "node ./dist/prisma/seeder.js"
   },
   "keywords": [],
   "author": "",
