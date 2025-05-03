@@ -1,7 +1,7 @@
 import prisma_client from "../config/prisma";
 import { NextFunction, Request, Response } from 'express';
 import { findFirst } from "../core/prismaFunctions";
-import { BadRequestResponse, InternalErrorResponse } from "../core/apiResponseError";
+import { AuthFailureResponse, InternalErrorResponse } from "../core/apiResponseError";
 
 async function isAdmin(req:Request, res:Response, next:NextFunction) {
     try{
@@ -13,7 +13,7 @@ async function isAdmin(req:Request, res:Response, next:NextFunction) {
         if (response) {
             next();
         }else{
-            next(new BadRequestResponse("Unauthorized access"));
+            next(new AuthFailureResponse("Unauthorized access"));
         }
     }catch(err){
         next(new InternalErrorResponse("InternalError"));
