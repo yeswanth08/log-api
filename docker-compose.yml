@@ -35,8 +35,6 @@ services:
   app:
     build:
       context: .
-      args:
-        DATABASE_URL: postgresql://postgres:password@postgres_db:5432/incidentsdb
     container_name: backend_application
     depends_on:
       db:
