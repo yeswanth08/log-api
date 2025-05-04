@@ -93,6 +93,134 @@ Access the API at: [http://localhost:3000](http://localhost:3000)
 
 ## 🛠 Example API Usage
 
+Certainly! Here's how you can update the README file to include instructions for testing the API using Postman or another API client:
+
+---
+
+## 🛠 Example API Usage
+
+### ✅ Testing with Postman or API Client
+
+If you're facing issues with the length or formatting of `curl` commands, you can use **Postman** or another API client to test the API.
+
+### 1. **Get all incidents**
+
+* **Method**: `GET`
+* **URL**: `http://localhost:3000/api/incidents`
+* **Steps**:
+
+  1. Open Postman or your preferred API client.
+  2. Select `GET` from the dropdown.
+  3. Enter the URL `http://localhost:3000/api/incidents` in the address bar.
+  4. Click **Send**.
+
+### 2. **Get incident by ID**
+
+* **Method**: `GET`
+* **URL**: `http://localhost:3000/api/incidents/{id}`
+
+  * Replace `{id}` with the actual incident ID.
+* **Steps**:
+
+  1. Open Postman.
+  2. Select `GET` from the dropdown.
+  3. Replace `{id}` with an actual incident ID in the URL.
+  4. Click **Send**.
+
+### 3. **Add new incident (No Auth)**
+
+* **Method**: `POST`
+* **URL**: `http://localhost:3000/api/add/incidents`
+* **Headers**:
+
+  * `Content-Type`: `application/json`
+* **Body**:
+
+  * Select the `raw` option and set the body type to `JSON`.
+  * Paste the following JSON:
+
+    ```json
+    {
+      "name": "admin",
+      "password": "test@123",
+      "title": "Investigate API response",
+      "description": "Incident description here.",
+      "severity": "MEDIUM"
+    }
+    ```
+* **Steps**:
+
+  1. Open Postman.
+  2. Select `POST` from the dropdown.
+  3. Enter the URL `http://localhost:3000/api/add/incidents`.
+  4. Go to the **Headers** tab and add `Content-Type: application/json`.
+  5. Go to the **Body** tab, select `raw`, and paste the JSON request body.
+  6. Click **Send**.
+
+### 4. **Add new incident (Admin Auth)**
+
+* **Method**: `POST`
+* **URL**: `http://localhost:3000/api/addwithauth/incidents`
+* **Headers**:
+
+  * `Content-Type`: `application/json`
+  * **Authorization**: (if needed, provide your auth credentials here)
+* **Body**:
+
+  * Same as the previous body, but this endpoint may require authorization.
+* **Steps**:
+
+  1. Open Postman.
+  2. Select `POST` from the dropdown.
+  3. Enter the URL `http://localhost:3000/api/addwithauth/incidents`.
+  4. Go to the **Headers** tab and add `Content-Type: application/json`.
+  5. Add **Authorization** headers (if required).
+  6. Go to the **Body** tab, select `raw`, and paste the JSON request body.
+  7. Click **Send**.
+
+### 5. **Delete incident (No Auth)**
+
+* **Method**: `DELETE`
+* **URL**: `http://localhost:3000/api/delete/incidents/{id}`
+
+  * Replace `{id}` with the actual incident ID to delete.
+* **Steps**:
+
+  1. Open Postman.
+  2. Select `DELETE` from the dropdown.
+  3. Replace `{id}` with the actual incident ID in the URL.
+  4. Click **Send**.
+
+### 6. **Delete incident (Admin Auth)**
+
+* **Method**: `DELETE`
+* **URL**: `http://localhost:3000/api/deletewithauth/incidents/{id}`
+
+  * Replace `{id}` with the actual incident ID to delete.
+* **Headers**:
+
+  * `Content-Type`: `application/json`
+* **Body**:
+
+  * Add the following JSON for admin authentication:
+
+    ```json
+    {
+      "name": "admin",
+      "password": "test@123"
+    }
+    ```
+* **Steps**:
+
+  1. Open Postman.
+  2. Select `DELETE` from the dropdown.
+  3. Enter the URL `http://localhost:3000/api/deletewithauth/incidents/{id}`.
+  4. Go to the **Headers** tab and add `Content-Type: application/json`.
+  5. Go to the **Body** tab, select `raw`, and paste the admin authentication JSON.
+  6. Click **Send**.
+
+---
+
 ### ✅ Testing with cURL
 
 1. **Get all incidents**
@@ -110,8 +238,8 @@ curl -X GET http://localhost:3000/api/incidents/{id}
 3. **Add new incident (No Auth)**
 
 ```bash
-curl -X POST http://localhost:3000/api/add/incidents \
-  -H "Content-Type: application/json" \
+curl -X POST http://localhost:3000/api/add/incidents\
+  -H "Content-Type: application/json"\
   -d '{
         "name": "admin",
         "password": "test@123",
@@ -124,7 +252,7 @@ curl -X POST http://localhost:3000/api/add/incidents \
 4. **Add new incident (Admin Auth)**
 
 ```bash
-curl -X POST http://localhost:3000/api/addwithauth/incidents \
+curl -X POST http://localhost:3000/api/addwithauth/incidents\
   -H "Content-Type: application/json" \
   -d '{
         "name": "admin",
@@ -144,8 +272,8 @@ curl -X DELETE http://localhost:3000/api/delete/incidents/{id}
 6. **Delete incident (Admin Auth)**
 
 ```bash
-curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/{id} \
-  -H "Content-Type: application/json" \
+curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/{id}\
+  -H "Content-Type: application/json"\
   -d '{
         "name": "admin",
         "password": "test@123"
