@@ -52,7 +52,7 @@ export const options = {
 // Functions
 
 export function readIncidents() {
-  const res = http.get('http://host.docker.internal:3000/api/incidents');
+  const res = http.get('http://backend_application:3000/api/incidents');
   check(res, {
     'status was 200': (r) => r.status === 200,
   });
@@ -63,7 +63,7 @@ export function addIncident() {
   const payload = JSON.stringify({ title: 'Test Incident', message: 'No auth' });
   const headers = { 'Content-Type': 'application/json' };
 
-  const res = http.post('http://host.docker.internal:3000/api/add/incidents', payload, { headers });
+  const res = http.post('http://backend_application:3000/api/add/incidents', payload, { headers });
   check(res, {
     'status was 200 or 201': (r) => r.status === 200 || r.status === 201,
   });
@@ -82,7 +82,7 @@ export function addIncidentWithAuth() {
       'Content-Type': 'application/json',
     };
   
-    const res = http.post('http://host.docker.internal:3000/api/addwithauth/incidents', payload, { headers });
+    const res = http.post('http://backend_application:3000/api/addwithauth/incidents', payload, { headers });
     check(res, {
       'auth status 200 or 201': (r) => r.status === 200 || r.status === 201,
     });
