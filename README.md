@@ -222,7 +222,6 @@ log-api/
 | Build & Start containers       | `docker-compose up --build`             |
 | Stop containers                | `docker-compose down`                   |
 | View container logs            | `docker-compose logs -f`                |
-| Seed database manually         | `docker exec -it node-app npm run seed` |
 
 ---
 
