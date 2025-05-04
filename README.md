@@ -93,6 +93,12 @@ Access the API at: [http://localhost:3000](http://localhost:3000)
 
 ## 🛠 Example API Usage
 
+---
+
+**IMPORTANT:** **DUE TO SPACE AND FORMATTING ISSUES, `CURL` IS NOT PREFERRED FOR TESTING THE API. WE RECOMMEND USING POSTMAN OR ANOTHER API CLIENT TO TEST THE ENDPOINTS.**
+
+---
+
 ### ✅ Testing with Postman or API Client
 
 If you're facing issues with the length or formatting of `curl` commands, you can use **Postman** or another API client to test the API.
