@@ -93,12 +93,6 @@ Access the API at: [http://localhost:3000](http://localhost:3000)
 
 ## 🛠 Example API Usage
 
-Certainly! Here's how you can update the README file to include instructions for testing the API using Postman or another API client:
-
----
-
-## 🛠 Example API Usage
-
 ### ✅ Testing with Postman or API Client
 
 If you're facing issues with the length or formatting of `curl` commands, you can use **Postman** or another API client to test the API.
