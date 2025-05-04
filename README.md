@@ -165,8 +165,14 @@ If you're facing issues with the length or formatting of `curl` commands, you ca
 
   * `Content-Type`: `application/json`
 * **Body**:
+* Add the following JSON for admin authentication:
 
-  * Same as the previous body, but this endpoint may require authorization.
+    ```json
+    {
+      "name": "admin",
+      "password": "test@123"
+    }
+    ```
 * **Steps**:
 
   1. Open Postman.
