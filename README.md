@@ -159,7 +159,7 @@ curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/{id} \
 To perform functional testing with Grafana K6, use the following command:
 
 ```bash
-docker run --rm -r grafana/k6 run - < ./test/test.js
+docker run --rm -i grafana/k6 run - < ./test/test.js
 ```
 
 ---
