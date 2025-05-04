@@ -141,8 +141,6 @@ If you're facing issues with the length or formatting of `curl` commands, you ca
 
     ```json
     {
-      "name": "admin",
-      "password": "test@123",
       "title": "Investigate API response",
       "description": "Incident description here.",
       "severity": "MEDIUM"
@@ -165,12 +163,17 @@ If you're facing issues with the length or formatting of `curl` commands, you ca
 
   * `Content-Type`: `application/json`
 * **Body**:
-* Add the following JSON for admin authentication:
+
+  * Select the `raw` option and set the body type to `JSON`.
+  * Paste the following JSON:
 
     ```json
     {
       "name": "admin",
-      "password": "test@123"
+      "password": "test@123",
+      "title": "Investigate API response",
+      "description": "Incident description here.",
+      "severity": "MEDIUM"
     }
     ```
 * **Steps**:
