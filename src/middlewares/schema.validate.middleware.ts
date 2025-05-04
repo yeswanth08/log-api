@@ -1,6 +1,6 @@
 import Z  from "zod";
 import { NextFunction, Request, Response } from "express";
-import { BadRequestResponse } from "../core/apiResponseError";
+import { BadRequestError } from "../core/apiError";
 
 const incidentSchema = Z.object({
     title: Z.string().min(1, "Title is required"),
@@ -17,9 +17,9 @@ export const validateIncident = (req:Request,res:Response,next:NextFunction)=>{
             description,
             severity: severity.toLowerCase()
         });
-        if (!result.success) new BadRequestResponse(result.error.errors[0].message).send(res);
+        if (!result.success) new BadRequestError(result.error.errors[0].message);
         next();
     }catch(error){
-        new BadRequestResponse("Invalid Response").send(res);
+        new BadRequestError("Invalid Response");
     }
 }

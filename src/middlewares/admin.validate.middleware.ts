@@ -1,22 +1,16 @@
 import prisma_client from "../config/prisma";
 import { NextFunction, Request, Response } from 'express';
 import { findFirst } from "../core/prismaFunctions";
-import { AuthFailureResponse, InternalErrorResponse, SuccessResponse } from "../core/apiResponseError";
+import { InternalError, UnauthorizedError } from "../core/apiError";
 
 async function isAdmin(req:Request, res:Response, next:NextFunction) {
     try{
         const {name,password} = req.body;
-        const response = await findFirst(prisma_client.admin, {
-            name:name,
-            password:password
-        });
-        if (response) {
-            next(new SuccessResponse("Valid admin credentials",res));
-        }else{
-            next(new AuthFailureResponse("Unauthorized access"));
-        }
+        const response = await findFirst(prisma_client.admin, {name,password});
+        if (!response) return next(new UnauthorizedError("Unauthorized access"));
+        next();
     }catch(err){
-        next(new InternalErrorResponse("InternalError"));
+        next(new InternalError("InternalError"));
     }
 }
 

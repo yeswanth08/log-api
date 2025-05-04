@@ -1,60 +1,55 @@
-import { Response } from "express";
-import { environment } from "./secrets";
-import{
-    AuthFailureResponse,
-    InternalErrorResponse,
-    BadRequestResponse,
-    ForbiddenResponse
-}from "./apiResponseError";
+import {Response} from 'express';
 
-export enum ErrorType{
-  UNAUTHORIZED = 'AuthFailureError',
-  INTERNAL = 'InternalError',
-  NOT_FOUND = 'NotFoundError',
-  BAD_REQUEST = 'BadRequestError',
-  FORBIDDEN = 'ForbiddenError',
-}
-
-export abstract class ApiError extends Error{
-    constructor(public type: ErrorType, public message: string = 'error') {
-        super(type);
+export enum ErrorType {
+    UNAUTHORIZED = 'UNAUTHORIZED',
+    INTERNAL = 'INTERNAL',
+    NOT_FOUND = 'NOT_FOUND',
+    BAD_REQUEST = 'BAD_REQUEST',
+    FORBIDDEN = 'FORBIDDEN',
+  }
+  
+  export abstract class ApiError extends Error {
+    constructor(public type: ErrorType, public message = 'error') {
+      super(message);
     }
-    public static handle(err:ApiError, res:Response):Response{
-        switch(err.type){
-            case ErrorType.UNAUTHORIZED:
-                return new AuthFailureResponse(err.message).send(res);
-            case ErrorType.NOT_FOUND:
-            case ErrorType.INTERNAL:
-                return new InternalErrorResponse(err.message).send(res);
-            case ErrorType.BAD_REQUEST:
-                return new BadRequestResponse(err.message).send(res);
-            case ErrorType.FORBIDDEN:
-                return new ForbiddenResponse(err.message).send(res);
-            default: {
-                let message = err.message;
-                if (environment === 'development') message = 'Something wrong happened.';
-                return new InternalErrorResponse(message).send(res);
-              }
-        }
+  
+    public static handle(err: ApiError, res: Response): Response {
+      switch (err.type) {
+        case ErrorType.UNAUTHORIZED:
+          return res.status(401).json({error: err.message});
+        case ErrorType.BAD_REQUEST:
+          return res.status(400).json({error: err.message});
+        case ErrorType.NOT_FOUND:
+          return res.status(404).json({error: err.message});
+        case ErrorType.FORBIDDEN:
+          return res.status(403).json({error: err.message});
+        case ErrorType.INTERNAL:
+          return res.status(500).json({error: err.message || 'Internal Server Error'});
+        default:
+          return res.status(500).json({error: err.message || 'Internal Server Error'});
+      }
     }
-}
-
-
-export class AuthFailureError extends ApiError {
-    constructor(message = 'Invalid Credentials') {
-      super(ErrorType.UNAUTHORIZED, message);
-    }
-}
-
-export class NotFoundError extends ApiError {
-    constructor(message = 'Not Found') {
+  }
+  
+  export class NotFoundError extends ApiError {
+    constructor(message = 'Not found') {
       super(ErrorType.NOT_FOUND, message);
     }
-}
-  
-export class ForbiddenError extends ApiError {
-    constructor(message = 'Permission denied') {
-      super(ErrorType.FORBIDDEN, message);
+  }
+  export class BadRequestError extends ApiError {
+    constructor(message = 'Bad request') {
+      super(ErrorType.BAD_REQUEST, message);
     }
-}
+  }
+  export class InternalError extends ApiError {
+    constructor(message = 'Internal server error') {
+      super(ErrorType.INTERNAL, message);
+    }
+  }
+  
+  export class UnauthorizedError extends ApiError {
+    constructor(message = 'Unauthorized') {
+      super(ErrorType.UNAUTHORIZED, message);
+    }
+  }
   

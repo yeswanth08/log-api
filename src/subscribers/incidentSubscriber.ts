@@ -1,4 +1,7 @@
-import { redis_pubsunb_client } from "../config/redis";
+import { redis_pubsunb_client, redis_queue_client } from "../config/redis";
+import prisma_client from "../config/prisma";
+import { findAll } from "../core/prismaFunctions";
+import { InternalError } from "../core/apiError";
 
 export async function startIncidentSubscriber() {
     try {
@@ -8,27 +11,43 @@ export async function startIncidentSubscriber() {
             await subscriber.connect();
         }
 
-        await subscriber.subscribe("incidents", (message: any) => {
+        await subscriber.subscribe("incidents", async (message: any) => {
             try {
                 if (!message) {
-                    console.error("Received null or empty message");
+                    console.error("❌ Empty message");
                     return;
                 }
-                const payload = JSON.parse(message);
-                if (!payload || !payload.action) {
-                    console.error("Invalid message format: Missing 'action' property", message);
+                const payload = JSON.parse(message.toString());
+                console.log("📩 Pub/Sub Received:", payload);
+
+                if (!payload.action) {
+                    console.warn("⚠️ Missing action in Pub/Sub message");
                     return;
                 }
+                if (payload.action === "create") {
+                    const all = await findAll(prisma_client.incident);
+                    await redis_queue_client.set("incidents:all", JSON.stringify(all), "EX", 5);
+                    await redis_queue_client.set(`incident:${payload.id}`, JSON.stringify(payload), "EX", 5);
+                }
+
+                /**
+                 * the ttl is set to 5 seconds for the cache due to testing purposes
+                 */
+
                 if (payload.action === "delete") {
-                    console.log("Delete incident:", payload.id);
-                } else {
-                    console.log("New incident:", payload);
+                    await redis_queue_client.del(`incident:${payload.id}`);
+                    const all = await findAll(prisma_client.incident);
+                    await redis_queue_client.set("incidents:all", JSON.stringify(all), "EX", 5);
                 }
-            } catch (error) {
-                console.error("Error processing message:", error);
+
+            } catch (err) {
+                console.error("Error processing Pub/Sub message:", err);
+                throw new InternalError("Subscriber failed");
             }
         });
+
     } catch (error) {
-        console.error("Error starting subscriber:", error);
+        console.error("❌ Error starting subscriber:", error);
+        throw new InternalError("Could not start Pub/Sub subscriber");
     }
 }

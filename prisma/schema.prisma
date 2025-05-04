@@ -26,12 +26,9 @@ model Incident {
   description String   @db.Text
   severity    Severity
   reportedAt  DateTime @default(now())
-  adminId     Int?
-  admin       Admin?   @relation(fields: [adminId], references: [id], onDelete: Cascade)
-
+  
   @@index([severity])
   @@index([reportedAt])
-  @@index([adminId])
 }
 
 model Admin {
@@ -40,7 +37,6 @@ model Admin {
   password  String    @db.VarChar(255)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt @default(now())
-  incidents Incident[]
 
   @@index([name])
   @@index([createdAt])

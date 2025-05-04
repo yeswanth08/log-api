@@ -8,34 +8,34 @@ This API is designed to log, display, add, and delete incident records with opti
 
 ## ✨ Features
 
-- ✅ View all incidents
-- ✅ View a specific incident by ID
-- ✅ Add a new incident (with or without admin authentication)
-- ✅ Delete an incident (with or without admin authentication)
-- ✅ Built with Express.js and TypeScript
-- ✅ PostgreSQL database with optimized indexing for faster querying
-- ✅ Redis caching for faster responses
-- ✅ Fully Dockerized for easy setup
+* ✅ View all incidents
+* ✅ View a specific incident by ID
+* ✅ Add a new incident (with or without admin authentication)
+* ✅ Delete an incident (with or without admin authentication)
+* ✅ Built with Express.js and TypeScript
+* ✅ PostgreSQL database with optimized indexing for faster querying
+* ✅ Redis caching for faster responses
+* ✅ Fully Dockerized for easy setup
 
 ---
 
 ## 🛠 Tech Stack
 
-| Technology  | Purpose                      |
-|-------------|-------------------------------|
-| Node.js     | Server runtime                |
-| Express.js  | Web framework                 |
-| TypeScript  | Type safety                   |
-| PostgreSQL  | Relational database           |
-| Prisma      | ORM (Optimized with indexes)  |
-| Redis       | Caching and quick storage     |
-| Docker      | Containerization              |
+| Technology   | Purpose                        |
+| ------------ | ------------------------------ |
+| Node.js      | Server runtime                 |
+| Express.js   | Web framework                  |
+| TypeScript   | Type safety                    |
+| PostgreSQL   | Relational database            |
+| Prisma       | ORM (Optimized with indexes)   |
+| Redis        | Caching and quick storage      |
+| Docker       | Containerization               |
 
 ---
 
 ## 🖼️ System Design Reference
 
-📷 ![Design](./Design.png)  
+📷 ![Design](./Design.png)  
 *(Example: basic flowchart showing Client → API Server → DB + Redis.)*
 
 ---
@@ -44,15 +44,9 @@ This API is designed to log, display, add, and delete incident records with opti
 
 ### 1. Prerequisites
 
-Ensure you have the following installed:
+Ensure you have Docker and Docker Compose installed.
 
-- Node.js
-- npm
-- Bash shell
-- Docker
-- Docker Compose
-
-⚡ **Note:** Node.js is mandatory locally to run `startup.sh` and setup dependencies smoothly.
+⚡ **Note:** You **do not need Node.js** installed locally to run the project as everything runs in Docker containers.
 
 ---
 
@@ -65,72 +59,35 @@ cd log-api
 
 ---
 
-### 3. Setup Environment Variables
+### 3. Install Dependencies and Build
 
-Create a `.env` file at the root:
-
-```bash
-touch .env
-```
-
-Paste the following:
-
-```env
-DATABASE_URL="postgresql://postgres:password@localhost:5432/incidentdb"
-PORT=3000
-NODE_ENV=development
-TZ='UTC'
-```
-
-⚡ Replace `your_admin_secret_key` with a strong secret string.
-
----
-
-### 4. Install Node Modules
+Run the following Docker Compose command to build and start the containers:
 
 ```bash
-npm install
-```
-
----
-
-### 5. Start the Application
-
-Use the provided startup script:
-
-```bash
-bash ./startup.sh
+docker-compose up --build
 ```
 
 This will:
 
-- Install dependencies
-- Build TypeScript code
-- Set up Docker containers
-- Start Node.js, PostgreSQL, and Redis services
+* Set up Docker containers
+* Install dependencies inside the containers
+* Build the TypeScript code
+* Start Node.js, PostgreSQL, and Redis services
+* completes the seeding
 
-Access it at: [http://localhost:3000](http://localhost:3000)
+Access the API at: [http://localhost:3000](http://localhost:3000)
 
----
-
-### 6. Manual Database Seeding (Optional)
-
-```bash
-docker exec -it node-app npm run seed
-```
-
----
 
 ## 📚 API Documentation
 
-| Method  | Route                         | Description                        | Authorization |
-|---------|-------------------------------|------------------------------------|---------------|
-| GET     | `/incidents`                  | Retrieve all incidents             | ❌ No          |
-| GET     | `/incidents/:id`               | Retrieve incident by ID            | ❌ No          |
-| POST    | `/add/incidents`               | Add new incident                   | ❌ No          |
-| POST    | `/addwithauth/incidents`       | Add new incident (admin)           | ✅ Yes         |
-| DELETE  | `/delete/incidents/:id`        | Delete incident                    | ❌ No          |
-| DELETE  | `/deletewithauth/incidents/:id`| Delete incident (admin)            | ✅ Yes         |
+| Method   | Route                               | Description                         | Authorization   |
+| -------- | ----------------------------------- | ----------------------------------- | --------------- |
+| GET      | `/api/incidents`                    | Retrieve all incidents              | ❌ No           |
+| GET      | `/api/incidents/:id`                | Retrieve incident by ID             | ❌ No           |
+| POST     | `/api/add/incidents`                | Add new incident                    | ❌ No           |
+| POST     | `/api/addwithauth/incidents`        | Add new incident (admin)            | ✅ Yes          |
+| DELETE   | `/api/delete/incidents/:id`         | Delete incident                     | ❌ No           |
+| DELETE   | `/api/deletewithauth/incidents/:id` | Delete incident (admin)             | ✅ Yes          |
 
 ---
 
@@ -154,28 +111,28 @@ curl -X GET http://localhost:3000/api/incidents/{id}
 
 ```bash
 curl -X POST http://localhost:3000/api/add/incidents \
-  -H "Content-Type: application/json" \
-  -d '{
-        "name": "admin",
-        "password": "test@123",
-        "title": "Investigate API response",
-        "description": "Incident description here.",
-        "severity": "MEDIUM"
-      }'
+  -H "Content-Type: application/json" \
+  -d '{
+        "name": "admin",
+        "password": "test@123",
+        "title": "Investigate API response",
+        "description": "Incident description here.",
+        "severity": "MEDIUM"
+      }'
 ```
 
 4. **Add new incident (Admin Auth)**
 
 ```bash
 curl -X POST http://localhost:3000/api/addwithauth/incidents \
-  -H "Content-Type: application/json" \
-  -d '{
-        "name": "admin",
-        "password": "test@123",
-        "title": "Investigate API response",
-        "description": "Incident description here.",
-        "severity": "MEDIUM"
-      }'
+  -H "Content-Type: application/json" \
+  -d '{
+        "name": "admin",
+        "password": "test@123",
+        "title": "Investigate API response",
+        "description": "Incident description here.",
+        "severity": "MEDIUM"
+      }'
 ```
 
 5. **Delete incident (No Auth)**
@@ -188,34 +145,22 @@ curl -X DELETE http://localhost:3000/api/delete/incidents/{id}
 
 ```bash
 curl -X DELETE http://localhost:3000/api/deletewithauth/incidents/{id} \
-  -H "Content-Type: application/json" \
-  -d '{
-        "name": "admin",
-        "password": "test@123"
-      }'
+  -H "Content-Type: application/json" \
+  -d '{
+        "name": "admin",
+        "password": "test@123"
+      }'
 ```
 
 ---
 
-### ✅ Testing with Postman
+### ✅ Functional Testing with Grafana K6
 
-- Open Postman.
-- Create new request:
-  - `GET`: [http://localhost:3000/api/incidents](http://localhost:3000/api/incidents)
-  - `POST`: [http://localhost:3000/api/add/incidents](http://localhost:3000/api/add/incidents)
-- Body → raw → JSON:
+To perform functional testing with Grafana K6, use the following command:
 
-```json
-{
-  "name": "admin",
-  "password": "test@123",
-  "title": "New Incident Title",
-  "description": "New Incident Description",
-  "severity": "MEDIUM"
-}
+```bash
+docker run --rm -r grafana/k6 run - < ./test/test.js
 ```
-
-Click Send.
 
 ---
 
@@ -224,34 +169,32 @@ Click Send.
 ```bash
 log-api/
 ├── docker-compose.yml
-├── .env
 ├── package.json
 ├── tsconfig.json
 ├── prisma/
-│   ├── schema.prisma
-│   ├── seeder.ts
+│   ├── schema.prisma
+│   ├── seeder.ts
 ├── src/
-│   ├── server.ts
-│   ├── routes/
-│   │   └── rootRouter.ts
-│   ├── controllers/
-│   │   ├── addIncidents.ts
-│   │   ├── deleteIncidents.ts
-│   │   ├── displayIncidents.ts
-│   ├── middlewares/
-│   │   └── admin.validate.middleware.ts
-├── startup.sh
+│   ├── server.ts
+│   ├── routes/
+│   │   └── rootRouter.ts
+│   ├── controllers/
+│   │   ├── addIncidents.ts
+│   │   ├── deleteIncidents.ts
+│   │   ├── displayIncidents.ts
+│   ├── middlewares/
+│   │   └── admin.validate.middleware.ts
 ```
 
 ---
 
 ## 🐳 Dockerized Services Overview
 
-| Service      | Port  | Purpose           |
-|--------------|-------|-------------------|
-| PostgreSQL   | 5432  | Database           |
-| Redis        | 6379  | Cache Storage      |
-| Node.js API  | 3000  | Application Server |
+| Service       | Port   | Purpose             |
+| ------------- | ------ | ------------------- |
+| PostgreSQL    | 5432   | Database            |
+| Redis         | 6379   | Cache Storage       |
+| Node.js API   | 3000   | Application Server  |
 
 ✅ Each service has automatic health checks (`pg_isready`, `redis-cli PING`, `curl` API server check).
 
@@ -259,37 +202,37 @@ log-api/
 
 ## ⚡ Database Optimization
 
-- Indexes created automatically via Prisma migrations.
-- Highly optimized querying, even as data grows.
+* Indexes created automatically via Prisma migrations.
+* Highly optimized querying, even as data grows.
 
 ---
 
 ## ✅ Health Checks
 
-- PostgreSQL: `pg_isready`
-- Redis: `redis-cli PING`
-- API Server: `curl http://localhost:3000`
+* PostgreSQL: `pg_isready`
+* Redis: `redis-cli PING`
+* API Server: `curl http://localhost:3000`
 
 ---
 
 ## ⚙️ Common Docker Commands
 
-| Task                         | Command                          |
-|-------------------------------|----------------------------------|
-| Build & Start containers      | `docker-compose up --build`      |
-| Stop containers               | `docker-compose down`            |
-| View container logs           | `docker-compose logs -f`         |
-| Seed database manually        | `docker exec -it node-app npm run seed` |
+| Task                           | Command                                 |
+| ------------------------------ | --------------------------------------- |
+| Build & Start containers       | `docker-compose up --build`             |
+| Stop containers                | `docker-compose down`                   |
+| View container logs            | `docker-compose logs -f`                |
+| Seed database manually         | `docker exec -it node-app npm run seed` |
 
 ---
 
 ## 📢 Important Notes
 
-- Prisma Client auto-generated at build.
-- `--legacy-peer-deps` used for smooth `npm install`.
-- TypeScript compilation and database seeding handled during startup.
-- CORS enabled for frontend integration.
-- Indexed PostgreSQL database for faster search performance.
+* Prisma Client auto-generated at build.
+* `--legacy-peer-deps` used for smooth `npm install`.
+* TypeScript compilation and database seeding handled during startup.
+* CORS enabled for frontend integration.
+* Indexed PostgreSQL database for faster search performance.
 
 ---
 
@@ -297,23 +240,25 @@ log-api/
 
 Contributions are welcome!
 
-- Fork the repo.
-- Create a feature branch.
-- Make your improvements.
-- Submit a pull request 🚀
+* Fork the repo.
+* Create a feature branch.
+* Make your improvements.
+* Submit a pull request 🚀
 
 ---
 
 ## 🛠 Troubleshooting and Recovery for Docker Engine Issues
 
 ### 1. Fix "attribute version is obsolete" Warning
-- Open `docker-compose.yml`
-- **Remove** the `version:` line.
+
+* Open `docker-compose.yml`
+* **Remove** the `version:` line.
 
 ### 2. Fix "unable to get image 'postgres:15'" Error
-- Restart Docker engine:
-  - Windows: Right-click Docker icon → Restart Docker
-  - Linux/macOS:
+
+* Restart Docker engine:
+    - Windows: Right-click Docker icon → Restart Docker
+    - Linux/macOS:
 
 ```bash
 sudo systemctl restart docker
@@ -325,7 +270,7 @@ sudo systemctl restart docker
 docker info
 ```
 
-- Confirm it’s healthy and running.
+* Confirm it’s healthy and running.
 
 ### 4. Check Docker API Version Compatibility
 
@@ -333,7 +278,7 @@ docker info
 docker version
 ```
 
-- Match API versions if needed.
+* Match API versions if needed.
 
 ### 5. Full Docker Restart Commands (Linux)
 
@@ -348,6 +293,8 @@ docker info
 
 ## ✨ Author
 
-**Log API**  
-by **Dadi Yeswanth Chinnamnaidu**  
+**Log API**  
+by **Dadi Yeswanth Chinnamnaidu**  
 Registration No: **12210320**
+
+---
