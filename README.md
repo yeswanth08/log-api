@@ -164,7 +164,6 @@ If you're facing issues with the length or formatting of `curl` commands, you ca
 * **Headers**:
 
   * `Content-Type`: `application/json`
-  * **Authorization**: (if needed, provide your auth credentials here)
 * **Body**:
 
   * Same as the previous body, but this endpoint may require authorization.
